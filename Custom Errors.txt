@@ -1,0 +1,18 @@
+Lanzar excepción para custom error:
+
+Comienza en service:
+thow New UserAlreadyExists("User Already Exists")
+
+En carpeta utils el archivo custom.exceptions.js:
+
+export class UserAlreadyExists extends Error {
+	constructor(message);
+	super(message);
+	this.name=this.constructor.name;
+}
+
+En el controller:
+
+dentro del catch
+
+if error instanceOf UserAlreadyExists...
