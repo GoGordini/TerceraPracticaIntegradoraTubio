@@ -13,10 +13,10 @@ router.get('/mockingproducts', mockingProducts);
 
 router.get("/:pid", validator.params(getProductByIdSchema),getProductById);
 
-router.delete("/:pid", authorization(accessRolesEnum.ADMIN),validator.params(getProductByIdSchema),deleteProduct);
+router.delete("/:pid", authorization([accessRolesEnum.ADMIN,accessRolesEnum.PREMIUM]),validator.params(getProductByIdSchema),deleteProduct);
 
 //router.post("/", authorization(accessRolesEnum.ADMIN),validator.body(productSchema),createProduct);
-router.post("/", authorization(accessRolesEnum.ADMIN),createProduct);
+router.post("/", authorization([accessRolesEnum.ADMIN,accessRolesEnum.PREMIUM]),createProduct);
 
 router.put("/:pid", authorization(accessRolesEnum.ADMIN),validator.params(getProductByIdSchema),validator.body(productSchema),updateProduct);
 

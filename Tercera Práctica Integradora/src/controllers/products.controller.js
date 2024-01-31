@@ -26,6 +26,10 @@ export const getProductById=async(req,res)=>{
 export const deleteProduct = async (req,res)=>{
     try {
     const {pid} =req.params;
+    const product = await getProductByIdService(pid)
+    if (product.owner!=req.user.email && req.user.role!="admin"){
+        return res.status(403).send({status:"error",message:"Forbidden. You do not own this product."})
+    }
     const result = await deleteProductService(pid);
     const io = req.app.get('socketio'); //esto no sé en qué capa debería ir.
     io.emit("showProducts", {products: await getProductService()}); //esto no sé en qué capa debería ir.
@@ -37,7 +41,7 @@ export const deleteProduct = async (req,res)=>{
 
 export const createProduct= async (req,res)=>{
         try {
-        const {title,description,price,thumbnail,code,category,stock,status} = req.body;
+        const {title,description,price,thumbnail,code,category,stock,status,owner} = req.body;
         const io = req.app.get('socketio');
         //va segunda la variable que quiero definir, primero va como la recibo.
         // if (!title || !description || !price || !code || !category || stock === null || stock === undefined || stock === '') {
@@ -50,7 +54,15 @@ export const createProduct= async (req,res)=>{
                 code: EErrors.INVALID_TYPE_ERROR
             })
         }
-        const product = {title,description,price,thumbnail,code,category,stock,status}
+        if (owner!="admin" && owner!=req.user.email && owner!=null){
+            throw CustomError.createError({
+                name: 'ProductError',
+                cause: 'owner should be your email address (default "admin")',
+                message: 'Error trying to create product',
+                code: EErrors.INVALID_TYPE_ERROR
+            })
+        }
+        const product = {title,description,price,thumbnail,code,category,stock,status,owner}
         const result = await createProductService(product);
         if (!result) {return res.status(400).send({status:"error",message:"product already exists"})};
         const products=await getProductService();

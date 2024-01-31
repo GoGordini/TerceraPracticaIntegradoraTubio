@@ -19,7 +19,12 @@ const configs = {
     passAdmin: process.env.PASS_ADMIN,
     privateKeyJWT: process.env.PRIVATE_KEY_JWT,
     gitHubClientSecret:process.env.GITHUB_CLIENT_SECRET,
-    persistence: process.env.PERSISTENCE
+    persistence: process.env.PERSISTENCE,
+    twilio_account_SID: process.env.TWILIO_ACCOUNT_SID,
+    twilio_auth_token: process.env.TWLIO_AUTH_TOKEN,
+    twilio_number:process.env.TWILIO_NUMBER,
+    userNodemailer: process.env.USER_NODEMAILER,
+    passwordNodemailer: process.env.PASSWORD_NODEMAILER
 };
 
 export default configs;

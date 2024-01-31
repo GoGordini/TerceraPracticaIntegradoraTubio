@@ -67,54 +67,46 @@ initializePassport();
 app.use(passport.initialize());
 app.use(passport.session());
 
-// app.get('/loggerTest', (req, res) => {
-//     req.logger.fatal('prueba fatal');
-//     req.logger.error('prueba error');
-//     req.logger.warning('prueba warning');
-//     req.logger.info('prueba info');
-//     req.logger.http('prueba http');
-//     req.logger.debug('prueba debug');
+// const transporter=nodemailer.createTransport({
+// 	service:"gmail",
+// 	port: 587, //lo indica gmail
+// 	auth:{
+//     user:configs.userNodemailer,
+//     pass:configs.passwordNodemailer} //sin espacios
+// })
 
-//     res.send({ result: 'OK' });
-// });
-const transporter=nodemailer.createTransport({
-	service:"gmail",
-	port: 587, //lo indica gmail
-	auth:{
-user:"cristianyeleonora@gmail.com",
-pass:"dzibnucdwluksozo"} //sin espacios
-})
+// app.get("/mail",async(req,res)=>{
+// await transporter.sendMail({
+//     from:"GordiniApp",
+//     to:"eleonora.tubio@gmail.com",
+//     subject:"Importante",
+//    html:`<div><h1>Puto el que lee</h1></div>`,
+// //   html:`<div><h1>Puto el que lee</h1><img src="cid:dog"/></div>`,
+//     // attachments:[{
+//     //     filename:"dog.jpeg",
+//     //     path:"src/dog.jpeg",
+//     //     cid:"dog"
+//     // }]
+//     attachments:[]
+// })
+// res.send("Correo enviado");
+// })
 
-app.get("/mail",async(req,res)=>{
-await transporter.sendMail({
-    from:"GordiniApp",
-    to:"eleonora.tubio@gmail.com",
-    subject:"Importante",
-    html:`<div><h1>Puto el que lee</h1><img src="cid:dog"/></div>`,
-    attachments:[{
-        filename:"dog.jpeg",
-        path:"src/dog.jpeg",
-        cid:"dog"
-    }]
-})
-res.send("Correo enviado");
-})
+// const TWILIO_ACCOUNT_SID=configs.twilio_account_SID;
+// const TWLIO_AUTH_TOKEN=configs.twilio_auth_token;
+// const TWILIO_NUMBER=configs.twilio_number;
 
-const TWILIO_ACCOUNT_SID="AC819bb09f2c7a9dcc22699f59434dc8fc"
-const TWLIO_AUTH_TOKEN="712886a435802efb847bbc3a2fe2820a"
-const TWILIO_NUMBER="+12082137612"
-
-const client = twilio(
-TWILIO_ACCOUNT_SID,
-TWLIO_AUTH_TOKEN,
-TWILIO_NUMBER
-)
+// const client = twilio(
+// TWILIO_ACCOUNT_SID,
+// TWLIO_AUTH_TOKEN,
+// TWILIO_NUMBER
+// )
 
 app.get("/sms", async(req,res)=>{
 await client.messages.create({
 from: TWILIO_NUMBER,
 to: "+5491160520881",
-body:"Puto el que lee"
+body:"Prueba Twilio"
 });
 res.send("SMS enviado");
 })

@@ -31,7 +31,8 @@ export const generateToken = (user) => {
 //req.user = {}
 export const authorization = (role) => {
     return async (req, res, next) => {
-        if(req.user.role !== role) return res.status(403).send({ status: 'error', message: 'no permissions' })
+        if(req.user.role !== role) {
+            if (!role.includes(req.user.role)) {return res.status(403).send({ status: 'error', message: 'no permissions' })}}
         next();
     }
 }
