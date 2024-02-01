@@ -21,7 +21,7 @@ router.delete('/:cid/product/:pid', validator.params(productCartSchema),addLogge
 router.put("/:cid",validator.params(getCartByIdSchema),validator.body(updateFullCartSchema), addLogger,updateCart);
 //router.put("/:cid",validator.params(getCartByIdSchema), updateCart);
 
-router.put('/:cid/product/:pid', authorization(accessRolesEnum.USER),addLogger,updateProductInCart);
+router.put('/:cid/product/:pid', authorization([accessRolesEnum.USER,accessRolesEnum.PREMIUM]),addLogger,updateProductInCart);
 
 router.post('/:cid/purchase',validator.params(getCartByIdSchema),addLogger,purchase);
 

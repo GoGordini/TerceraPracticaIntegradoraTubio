@@ -9,6 +9,16 @@ getUserByEmail = async (email) => {
     return user;
 }
 
+getUserById = async (uid) => {
+    const user = await usersModel.findOne({_id:uid}).lean();
+    return user;
+}
+
+updatePremiumStatus = async (uid,role) =>{
+    const user = await usersModel.updateOne({_id:uid},{$set:{role:role}});
+    return user;
+}
+
 save = async (user) => {
 const result = await usersModel.create(user);
 return result;

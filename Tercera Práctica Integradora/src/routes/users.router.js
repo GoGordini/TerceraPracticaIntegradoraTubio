@@ -4,7 +4,7 @@ import {passportStrategiesEnum,accessRolesEnum} from "../config/enums.js";
 import { config } from 'dotenv';
 import { generateToken,authorization} from '../utils.js';
 import {passportCall} from "../config/passport.config.js";
-import {getUserCurrent} from "../controllers/users.controller.js";
+import {getUserCurrent,updatePremiumStatus} from "../controllers/users.controller.js";
 //import {usersSchema} from "../schemas/users.schema.js";
 
 const router = Router();
@@ -76,6 +76,8 @@ router.get('/github-callback', passport.authenticate(passportStrategiesEnum.GITH
     const accessToken=generateToken(req.newUser);
     res.cookie('coderCookieToken', accessToken, { maxAge: 60 * 60 * 1000, httpOnly: true }).redirect('/products');
 });
+
+router.put('/premium/:uid', updatePremiumStatus);
 
 export default router;
 

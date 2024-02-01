@@ -29,8 +29,10 @@ export const getCart= async (cid) => {
     const cart = await cartManagerRepository.getCartByIdRepository(cid)
     return cart;
 }
-export const updateCart= async (cid,pid,quantity=1) => {
-    const cart = await cartManagerRepository.getCartByIdRepository(cid)
+export const updateCart= async (cid,pid,quantity=1,user) => {
+    const cart = await cartManagerRepository.getCartByIdRepository(cid);
+    const product = await productManagerRepository.getProductByIdRepository(pid);
+    if (product.owner===user){throw new Error("You own this product.")};
     if (cart.products.length===0){
         cart.products.push({"product":pid,"quantity":quantity}) //Problema acá y en línea 35 al usar file.
     } else{

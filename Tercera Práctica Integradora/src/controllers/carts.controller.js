@@ -112,8 +112,8 @@ export const updateProductInCart = async (req,res)=>{
         if (!product){
                 return res.status(404).send({status:"error",message:"Product not found"})
             }        
-            
-        const result = await updateCartService(cid,pid,amount.quantity);
+        const user = req.user.email;    
+        const result = await updateCartService(cid,pid,amount.quantity,user);
         res.status(201).send({status:"success",payload:result});
             }
     catch(error){

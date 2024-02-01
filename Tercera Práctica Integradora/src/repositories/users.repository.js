@@ -31,6 +31,16 @@ export default class UsersRepository {
             return userToReturn;
         }     
         
+        getUserByIdRepository = async (uid) => {
+            const user = await this.dao.getUserById(uid);
+            return user;
+        }    
+        
+        updatePremiumStatusRepository = async (uid,role) =>{
+            const user= await this.dao.updatePremiumStatus(uid,role);
+            return user;
+        }
+
         saveRepository = async () => { 
             const result = await this.dao.save();
             return result;
@@ -38,7 +48,7 @@ export default class UsersRepository {
                 
 }
 
-(req, res) => {
-    const data = new UsersDto(req.user);
-    res.send({ status: 'success', payload: data });
-}
+// (req, res) => {
+//     const data = new UsersDto(req.user);
+//     res.send({ status: 'success', payload: data });
+// }
