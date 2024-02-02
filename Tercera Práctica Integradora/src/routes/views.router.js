@@ -133,6 +133,21 @@ router.get('/login', (req, res) => {
     res.render('login')
 });
 
+router.get('/restore', (req, res) => {
+    res.render('restore')
+});
+
+router.get('/failed-restore', (req, res) => {
+    res.render('restoreFailed')
+});
+
+router.get('/restore-success', (req, res) => {
+    res.render('restoreSuccess')
+});
+
+router.get('/reset', (req, res) => {
+    res.render('reset')
+});
 //acá aplico el middleware privateAccess.
 router.get('/', redirectToLogin, (req, res) => {
     res.render('profile', {

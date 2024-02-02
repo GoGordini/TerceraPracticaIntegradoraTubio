@@ -23,6 +23,7 @@ import passport from "passport";
 import configs from "./config.js";
 import SessionsRouter from './routes/sessions.test.router.js';
 import TestsRouter from './routes/tests.router.js';
+import sessionsRouter from "./routes/sessions.router.js"
 import cookieParser from "cookie-parser";
 import errorHandler from './middlewares/errors/index.js';
 import { addLogger } from './loggers.js';
@@ -118,6 +119,8 @@ app.use('/api/sessiontests', sessionTestsRouter.getRouter());
 app.use("/api/products",productsRouter);
 app.use("/api/carts",cartsRouter);
 app.use('/api/users', usersRouter);
+app.use("/api/sessions",sessionsRouter);
+
 app.use((req, res) => {
     res.status(404).send('Error 404: Page Not Found');
   });

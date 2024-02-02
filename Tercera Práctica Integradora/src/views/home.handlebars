@@ -6,7 +6,7 @@
      {{/if}}      --}}
       
      <p>Welcome {{user.first_name}}. You are logged in as {{user.role}}! Your cart is {{user.cart._id}}</p>  
-     <a href="/api/sessions/logout"><button>Salir</button></a>
+     <a href="/api/users/logout"><button>Salir</button></a>
      {{#each products}} 
  <ul>
                 <li>title: {{this.title}}</li> 

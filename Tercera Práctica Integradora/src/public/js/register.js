@@ -22,7 +22,7 @@ form.addEventListener('submit', async (e) => {
         //console.log(obj);
     data.forEach((value, key) => obj[key] = value);
     //console.log(obj);
-    const responseUser= await fetch('/api/sessions/register', {
+    const responseUser= await fetch('/api/users/register', {
         method: 'POST',
         body: JSON.stringify(obj),
         headers: {
