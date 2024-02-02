@@ -145,7 +145,7 @@ router.get('/restore-success', (req, res) => {
     res.render('restoreSuccess')
 });
 
-router.get('/reset', (req, res) => {
+router.get('/reset', redirectToReset,(req, res) => {
     res.render('reset')
 });
 //acá aplico el middleware privateAccess.
@@ -166,6 +166,16 @@ function redirectToLogin(req, res, next) {
     })(req, res, next);
   }
 
+  function redirectToReset(req, res, next) {
+    passport.authenticate('jwt', { session: false }, (err, user, info) => {
+      if (err || !user) {
+        // Redirige a la ruta de login si la autenticación falla
+        return res.redirect('/restore');
+      }
+      req.user = user;
+      return next();
+    })(req, res, next);
+  }
 // router.get('/', passport.authenticate("jwt",{session:false}), (req, res) => {
 //     res.render('profile', {
 //         user: req.user

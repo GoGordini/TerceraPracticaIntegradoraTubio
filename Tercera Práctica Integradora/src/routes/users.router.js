@@ -72,10 +72,9 @@ router.post("/restore",async(req,res)=>{
 
 })
 
- router.put("/reset",passportCall("jwt"),async(req,res)=>{
+ router.put("/reset",async(req,res)=>{
     try{
     const { email, password } = req.body;
-    console.log(email,password);
     const user = await usersModel.findOne({email:email});
     if (!user){
         return res.status(404).send({status:"error",message:"User not found"})
@@ -84,7 +83,7 @@ router.post("/restore",async(req,res)=>{
         return res.status(404).send({status:"error",message:"La nueva contraseña debe ser diferente de la anterior"})
     }
     const result= await usersModel.updateOne({email:email},{$set:{password:createHash(password)}})
-    return res.send({status:"success",payload:result})    
+    return res.clearCookie("coderCookieToken").send({status:"success",payload:result})    
     }catch(error){
         res.status(500).send({error:error.message})
     };
