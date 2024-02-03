@@ -14,6 +14,12 @@ form.addEventListener('submit', async (e) => {
     });
        if (responseUser.ok) { window.location.replace('/login')} else{
         if (responseUser.status === 401) {window.location.replace('/restore')
-       } else {console.log("La contraseña debe ser diferente de la anterior")}; 
+       } else {
+        Swal.fire({
+        icon: 'error',
+        title: 'Error de contraseña',
+        text: 'La nueva contraseña debe ser diferente de la anterior',
+    }).then(() => {
+    });}; 
         }
     })
